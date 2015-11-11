@@ -1,7 +1,8 @@
 application: aries-auto
-version: 3
-runtime: go
-api_version: go1
+version: 6
+runtime: nodejs
+vm: true
+api_version: 1
 
 skip_files:
 - ^node_modules/.*

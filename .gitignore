@@ -4,3 +4,4 @@ src/lib/
 .tmp/
 dist/
 src/app/constants/config.js
+npm-debug.log
