@@ -1,6 +1,4 @@
-application: aries-auto
-version: 6
-runtime: nodejs
+runtime: custom
 vm: true
 api_version: 1
 
@@ -34,11 +32,5 @@ handlers:
 - url: /(.*\.(xml))$
   static_files: dist/\1
   upload: dist/.*\.(xml)$
-- url: /google73134e511c5bcd8d.html
-  static_files: dist/google73134e511c5bcd8d.html
-  upload: dist/google73134e511c5bcd8d.html
-- url: /.*
-  script: _go_app
-
-env_variables:
-  PRERENDER_TOKEN: 'Ny5UurBwp9vvWl0TqFmz'
+- url: .*
+  script: nothing.js
