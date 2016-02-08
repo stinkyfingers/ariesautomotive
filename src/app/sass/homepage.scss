@@ -124,6 +124,76 @@
 	}
 }
 
+.home-nav {
+	background-color: transparent;
+	box-shadow: none;
+	height: 540px;
+
+	.video-container {
+		position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    overflow: hidden;
+	    z-index: -100;
+
+		video {
+			position: absolute;
+		    top: 50%;
+		    left: 50%;
+		    width: auto;
+		    height: auto;
+		    min-width: 100%;
+		    min-height: 100%;
+		    -webkit-transform: translate(-50%, -50%);
+		       -moz-transform: translate(-50%, -50%);
+		        -ms-transform: translate(-50%, -50%);
+			    transform: translate(-50%, -50%);
+			background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+			background-size: cover;
+			transition: 1s opacity;
+		}
+	}
+
+	.lookup-container {
+		background-color: transparent;
+		padding: 0;
+		.lookup {
+			margin-left: 0;
+		}
+	}
+
+	.content-container {
+		position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+	    overflow: hidden;
+	    z-index: -100;
+
+		.bar {
+			background: rgba(245,245,245,.8);
+			margin: 20px auto;
+			width: 80%;
+			border-radius: 4px;
+			box-shadow: 0 2px 12px #333;
+			border: 1px solid #ccc;
+		}
+
+		.navbar-brand {
+			width: 250px;
+			height: 100px;
+
+			img {
+				margin: 20px 15px;
+			}
+		}
+
+	}
+}
+
 @media (min-width: 760px){
 	.home-container{
 		.row.whats-new{

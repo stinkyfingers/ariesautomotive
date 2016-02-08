@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('ariesautomotive').controller('MainController', ['$scope', 'TestimonialService', 'PartService', '$rootScope', 'Lightbox', '$sce', function($scope, TestimonialService, PartService, $rootScope, Lightbox, $sce){
+  $rootScope.homeNav = true;
   $scope.testimonials = [];
   $scope.featuredProducts = [];
   $scope.catalogs = [

@@ -6,6 +6,7 @@ angular.module('ariesautomotive').controller('AppController', ['$scope', '$rootS
 	$rootScope.pageDesc = "From grille guards and modular Jeep bumpers to side bars, bull bars and floor liners, ARIES truck and SUV accessories offer a custom fit for your vehicle.";
 	$rootScope.pageKywds = "aries, automotive, truck, suv, jeep, accessories, custom";
 
+	$rootScope.homeNav = false;
 	$scope.parentCats = [];
 	$scope.search_term = '';
 

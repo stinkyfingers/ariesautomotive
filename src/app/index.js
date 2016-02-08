@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('ariesautomotive', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'ngResource', 'ngDialog', 'ui.router', 'ui.bootstrap', 'LocalStorageModule', 'uiGmapgoogle-maps', 'bootstrapLightbox', 'angularSpinner'])
-	.config(function ($stateProvider, $urlRouterProvider, $interpolateProvider, $locationProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider, LightboxProvider) {
+	.config(function ($stateProvider, $sceDelegateProvider, $urlRouterProvider, $interpolateProvider, $locationProvider, localStorageServiceProvider, uiGmapGoogleMapApiProvider, LightboxProvider) {
 		var lookupState = {
 			templateUrl: 'app/controllers/lookup/index.html',
 			controller: 'LookupController'
@@ -9,6 +9,7 @@ angular.module('ariesautomotive', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanit
 		jQuery.ajaxSetup({
 			cache: true
 		});
+		$sceDelegateProvider.resourceUrlWhitelist(['**']);
 		$stateProvider
 			.state('home', {
 				url: '/',

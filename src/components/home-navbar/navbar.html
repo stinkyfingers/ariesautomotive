@@ -1,0 +1,42 @@
+<header class="home-nav" ng-controller="HomepageNavController">
+    <div class="video-container" ng-cloak>
+        <video autoplay  poster="[[ video.poster ]]" class="backgroundVideo" loop>
+            <source ng-repeat="file in video.files" src="[[ file.path ]]" type="[[ file.type ]]">
+        </video>
+    </div>
+
+    <div class="content-container">
+        <div class="bar row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <a ng-href="/" title="ARIES Automotive" class="navbar-brand">
+                    <span></span>
+                    <img src="https://storage.googleapis.com/aries-logo/ARIES%20Logo%20(1c_red%20on%20transparent).svg" alt="ARIES Automotive Logo" class="AriesLogo">
+                </a>
+            </div>
+            <nav class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <ul class="nav navbar-nav">
+                    <li ng-repeat="c in parentCats" class="dropdown navigationItem">
+                        <a href="#" title="[[c.title]]" class="dropdown-toggle" data-toggle="dropdown" ng-if="c.children !== undefined">[[c.title | uppercase]]
+                            <i class="caret"></i>
+                        </a>
+                        <a href="/category/[[c.id]]" title="[[c.title]]" ng-if="c.children === undefined">
+                            [[c.title | uppercase]]
+                        </a>
+                        <ul class="dropdown-menu" role="menu" ng-if="c.children !== undefined">
+                            <li ng-repeat="sc in c.children | orderBy:'sort'" role="menuitem">
+                                <a href="/category/[[sc.id]]">[[sc.title]]</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="navigationItem">
+                        <a href="/appguides" title="Application Guides">APPLICATION GUIDES</a>
+                    </li>
+                </ul>
+
+                <div ui-view="lookup" class="lookup-container"></div>
+            </nav>
+        </div>
+    </div>
+
+
+</header>

@@ -1,26 +1,5 @@
 <div class="home-container">
 
-	<div id="hero-image-carousel" class="carousel slide" data-ride="carousel">
-
-		<div class="carousel-inner">
-			<div class="item" ng-class="{'active':i === 0}" ng-repeat="(i,img) in carousel_images | orderBy:'order'">
-				<div class="carouselImg" style="background: url('[[img.image]]'); background-size:cover; min-height:350px; background-repeat: no-repeat; background-position:50% 60%;"></div>
-				<div class="carousel-caption">
-					<span class="bigText">[[img.text]]</span>
-					<div class="clearfix">&nbsp;</div>
-					<a class="white-transparent-button" href="[[img.link]]">[[img.button_text]]</a>
-				</div>
-			</div>
-		</div>
-
-		<a class="left carousel-control" ng-click="carouselPrev()" role="button" data-slide="prev">
-			<span class="glyphicon glyphicon-chevron-left"></span>
-		</a>
-		<a class="right carousel-control" ng-click="carouselNext()" role="button" data-slide="next">
-			<span class="glyphicon glyphicon-chevron-right"></span>
-		</a>
-	</div>
-
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-lg-6">
@@ -29,12 +8,6 @@
 					They change the rules, so we make up our own. They put up road blocks; we find a way around. They tell us there is no path ahead; we blaze a trail. At ARIES, we get revved up about going off the beaten path. From our Pro Series grille guards and modular
 					Jeep bumpers to our StyleGuard&trade; floor liners and Seat Defenders, ARIES offers freedom of customization and a perfect fit for your vehicle. So whatever terrain you choose to conquer, do it with style and do it with ARIES.
 				</p>
-				<div class="ytVideoWrapper">
-					<iframe allowfullscreen="" frameborder="0" height="315" src="//www.youtube.com/embed/M7k7rhOtMY4?rel=0" width="420"></iframe>
-				</div>
-				<div class="ytVideoWrapper" style="margin:20px 0px;">
-					<iframe allowfullscreen="" frameborder="0" height="315" src="//www.youtube.com/embed/LDQEbHqWjfo?rel=0" width="420"></iframe>
-				</div>
 			</div>
 			<div class="col-md-6 col-lg-6">
 

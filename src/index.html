@@ -119,9 +119,8 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
-	<div ng-cloak>
-		<div ng-include="'components/navbar/navbar.html'"></div>
-	</div>
+	<div ng-if="homeNav" ng-include="'components/home-navbar/navbar.html'"></div>
+	<div ng-if="!homeNav" ng-include="'components/navbar/navbar.html'"></div>
 	<div ui-view="body" ng-cloak></div>
 	<div ng-cloak>
 		<div ng-include="'components/footer/footer.html'"></div>
