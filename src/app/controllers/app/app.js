@@ -22,6 +22,13 @@ angular.module('ariesautomotive').controller('AppController', ['$scope', '$rootS
         return new Date().getFullYear();
 	};
 
+	$rootScope.imageToString = function(img) {
+		if (img.Host && img.Host !== '') {
+			return img.Scheme + '://' + img.Host + img.Path;
+		}
+		return '';
+	}
+
 	$scope.carousel_images = [{
 		image: 'http://storage.googleapis.com/aries-website/hero-images/jeep.png',
 		text: 'Never Fear the Uncertain Road',

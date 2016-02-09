@@ -1,5 +1,17 @@
 <div class="home-container">
 
+	<div class="container slider">
+		<h3>Slider</h3>
+		<div ng-if="cat.image && cat.image.Host !== ''" class="slide" ng-repeat="cat in parentCats">
+			<img ng-src="[[imageToString(cat.image)]]" alt="">
+			<span class="title">[[ cat.title ]]</span>
+		</div>
+		<div ng-if="cat.image && cat.image.Host !== ''" class="slide" ng-repeat="cat in parentCats">
+			<img ng-src="[[imageToString(cat.image)]]" alt="">
+			<span class="title">[[ cat.title ]]</span>
+		</div>
+	</div>
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 col-lg-6">
@@ -29,7 +41,7 @@
 	</div>
 
 	<div class="container catalogs" ng-if="catalogs.length > 0">
-		<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 catalog" ng-repeat="cat in catalogs">
+		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 catalog" ng-repeat="cat in catalogs">
 			<img src="[[cat.image]]" alt="[[cat.title]]">
 			<div>
 				<h3>[[cat.title]]</h3>
