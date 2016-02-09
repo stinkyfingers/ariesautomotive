@@ -1,0 +1,231 @@
+nav {
+	background-color: black;
+	height: 50px;
+	width: 100%;
+
+	ul.nav > li {
+		display: inline-block;
+		> a {
+			font-size: 12px;
+		}
+	}
+
+	.mobile-brand {
+		padding: 0;
+		.navbar-brand {
+			float: left;
+			padding: 0;
+			img {
+				height: 20px;
+				margin: 15px 0;
+			}
+		}
+	}
+
+	button[type=button] span {
+		background-color: white;
+	}
+
+	form {
+		float: right;
+		.input-control {
+			margin: 0 0 2px;
+			width: 80%;
+			position: relative;
+			float: left;
+			height: 40px;
+			margin-top: 5px;
+
+			input[type=search] {
+				background: transparent;
+				border: 0;
+				border-bottom: 2px solid #fff;
+				color: #fff;
+				font-size: 16px;
+				padding: 10px 10px 0;
+				transition: border .3s ease-in;
+				width: 100%;
+
+				&:active,
+				&:focus {
+					outline: 0;
+					border-color: $newRed;
+
+				}
+
+			}
+		}
+
+		button[type=submit] {
+			background-color: transparent;
+			border: 0;
+			box-shadow: none;
+			color: white;
+			height: 40px;
+			margin-top: 5px;
+			transition: color .3s ease-in;
+			vertical-align: baseline;
+			padding-top: 10px;
+			float: left;
+
+			&:hover {
+				background-color: transparent;
+				color: $newRed;
+			}
+		}
+	}
+}
+
+.navbar-collapse {
+	background: black;
+	form {
+		border: 0;
+		box-shadow: none;
+	}
+
+	ul > li {
+		&.open > a:hover,
+		&.open > a:focus {
+			color: $newRed;
+			background: none;
+			background-color: transparent;
+			border-color: $newRed;
+			border-bottom: 2px solid $newRed;
+		}
+		a:hover,
+		a:focus,
+		a:active {
+			background-color: transparent;
+			color: white;
+		}
+
+		a > i {
+			float:right;
+			vertical-align: middle;
+		}
+		> ul > li > a {
+			color: #fff;
+		}
+	}
+}
+
+
+.home-nav {
+	background-color: transparent;
+	box-shadow: none;
+	height: 540px;
+
+	.video-container {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		overflow: hidden;
+		z-index: -100;
+
+		video {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: auto;
+			height: auto;
+			min-width: 100%;
+			min-height: 100%;
+			-webkit-transform: translate(-50%, -50%);
+			-moz-transform: translate(-50%, -50%);
+			-ms-transform: translate(-50%, -50%);
+			transform: translate(-50%, -50%);
+			background: url('//demosthenes.info/assets/images/polina.jpg') no-repeat;
+			background-size: cover;
+			transition: 1s opacity;
+		}
+	}
+
+	.lookup-container {
+		background-color: transparent;
+		padding: 0;
+		margin-top: 12.5px;
+
+		.lookup {
+			margin-left: 0;
+		}
+	}
+
+	.content-container {
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		overflow: hidden;
+		z-index: -100;
+		transition: background .5s ease-in;
+
+		&.hover {
+			background: rgba(0, 0, 0, 0.8);
+		}
+
+		.bar {
+			background: rgb(255, 255, 255);
+			margin: 20px auto;
+			border-radius: 4px;
+			box-shadow: 0 2px 12px #333;
+			border: 1px solid #ccc;
+		}
+
+		.navbar-brand {
+			width: 250px;
+			height: 100%;
+		}
+
+		ul > li {
+			> a {
+				font-size: 16px;
+
+				&:hover,
+				&:active,
+				&:focus {
+					background: transparent;
+				}
+			}
+
+			> ul {
+				border-bottom: 3px solid $newRed;
+				border-radius: 0 0 4px 4px;
+			}
+		}
+
+	}
+}
+
+@media (min-width: $screen-md-min) {
+	nav {
+		form {
+			float: right;
+			height: 100%;
+			.input-control {
+				height: 25px;
+				margin-top: 2px;
+
+				input[type=search] {
+					padding: 3px 10px;
+				}
+			}
+
+			button[type=submit] {
+				margin-top: 0;
+				height: 25px;
+			}
+		}
+	}
+}
+
+@media (min-width: 760px){
+	nav {
+		height: 35px;
+		form .input-control {
+			width: 70%;
+		}
+	}
+}
