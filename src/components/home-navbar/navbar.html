@@ -1,3 +1,19 @@
+<nav>
+    <ul class="nav pull-left">
+        <li class="topNavItem"><a href="/buy" title="Where to Buy">WHERE TO BUY</a></li>
+        <li class="topNavItem"><a href="http://orders.ariesautomotive.com/" title="COMNET Login">COMNET LOGIN</a></li>
+        <li class="topNavItem"><a href="/becomedealer" title="Become a Dealer">BECOME A DEALER</a></li>
+        <li class="topNavItem"><a href="/about" title="About Us">ABOUT</a></li>
+        <li class="topNavItem"><a href="/techsupport" title="Technical Support">TECH SUPPORT</a></li>
+        <li class="topNavItem"><a href="/contact" title="Contact Us">CONTACT</a></li>
+    </ul>
+    <form class="pull-right">
+        <input type="search">
+        <button type="submit">
+            <span class="glyphicon glyphicon-search"></span>
+        </button>
+    </form>
+</nav>
 <header class="home-nav" ng-controller="HomepageNavController">
     <div class="video-container" ng-cloak>
         <video autoplay  poster="[[ video.poster ]]" class="backgroundVideo" loop>
@@ -6,14 +22,20 @@
     </div>
 
     <div class="content-container">
-        <div class="bar row">
-            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                <a ng-href="/" title="ARIES Automotive" class="navbar-brand">
-                    <span></span>
-                    <img src="https://storage.googleapis.com/aries-logo/ARIES%20Logo%20(1c_red%20on%20transparent).svg" alt="ARIES Automotive Logo" class="AriesLogo">
-                </a>
+        <div class="bar container" ng-mouseenter="barHover()" ng-mouseleave="barUnhover()">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                    <a ng-href="/" title="ARIES Automotive" class="navbar-brand">
+                        <span></span>
+                        <img src="https://storage.googleapis.com/aries-logo/ARIES%20Logo%20(1c_red%20on%20transparent).svg" alt="ARIES Automotive Logo" class="AriesLogo">
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                    <div ui-view="lookup" class="lookup-container"></div>
+                </div>
             </div>
-            <nav class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+
+            <div class="row">
                 <ul class="nav navbar-nav">
                     <li ng-repeat="c in parentCats" class="dropdown navigationItem">
                         <a href="#" title="[[c.title]]" class="dropdown-toggle" data-toggle="dropdown" ng-if="c.children !== undefined">[[c.title | uppercase]]
@@ -32,9 +54,7 @@
                         <a href="/appguides" title="Application Guides">APPLICATION GUIDES</a>
                     </li>
                 </ul>
-
-                <div ui-view="lookup" class="lookup-container"></div>
-            </nav>
+            </div>
         </div>
     </div>
 

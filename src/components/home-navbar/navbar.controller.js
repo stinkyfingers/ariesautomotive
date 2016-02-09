@@ -12,20 +12,29 @@ angular.module('ariesautomotive').controller('HomepageNavController', ['$scope',
 			path: '//storage.googleapis.com/aries-website/hero_video/SampleVideoForSite_ARIES.webm',
 			type: 'video/webm',
 		}]
-	},{
-		poster: '//storage.googleapis.com/aries-website/hero_video/whitewashed_poster.jpg',
-		files: [{
-			path: '//storage.googleapis.com/aries-website/hero_video/SampleVideoForSiteWhiteScale_ARIES.mp4',
-			type: 'video/mp4',
-		},{
-			path: '//storage.googleapis.com/aries-website/hero_video/SampleVideoForSiteWhiteScale_ARIES.webm',
-			type: 'video/webm',
-		}]
 	}];
 
 	$scope.video = videos[Math.floor(Math.random() * videos.length)];
 
 	$scope.search = function(){
 		$state.go('search',{'term': $scope.search_term});
+	};
+
+	$scope.barHover = function() {
+		var els = document.getElementsByClassName('content-container');
+		if (els.length !== 1) {
+			return;
+		}
+
+		els[0].classList.add('hover');
+	};
+
+	$scope.barUnhover = function() {
+		var els = document.getElementsByClassName('content-container');
+		if (els.length !== 1) {
+			return;
+		}
+
+		els[0].classList.remove('hover');
 	};
 }]);
