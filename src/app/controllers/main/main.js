@@ -57,4 +57,31 @@ angular.module('ariesautomotive').controller('MainController', ['$scope', 'Testi
     Lightbox.openModal($scope.whatsNewContent, 0);
   };
 
+  $scope.categoryTileClass = function(row) {
+      if (row.length === 4) {
+          return 'tile col-lg-3 col-md-6 col-sm-6 col-xs-12';
+      }
+      return 'tile col-lg-' + (row.length * 4) + ' col-md-' + (row.length * 4) + ' col-sm-' + (row.length * 2);
+  };
+
+  $scope.$watch('parentCats', function(n, o) {
+      if (n === undefined || n.length === o.length) {
+          return;
+      }
+
+      var tileRows = [];
+      var row = [];
+      for (var i = 0; i < $scope.parentCats.length; i++) {
+          var cat = $scope.parentCats[i];
+          row.push(cat);
+          if (row.length === 4) {
+              tileRows.push(row);
+              row = [];
+          }
+      }
+
+      console.log(tileRows);
+      $scope.categoryRows = tileRows;
+  });
+
 }]);

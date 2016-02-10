@@ -73,11 +73,11 @@
 
 <header class="home-nav hidden-xs" ng-controller="HomepageNavController">
     <div class="video-container" ng-cloak>
-        <video ng-if="showVideo" autoplay poster="[[ video.poster ]]" class="backgroundVideo" loop>
+        <video ng-if="showVideo" muted autoplay poster="[[ video.poster ]]" class="backgroundVideo" loop>
             <source ng-repeat="file in video.files" src="[[ file.path ]]" type="[[ file.type ]]">
-            </video>
-            <img ng-if="!showVideo" src="[[ video.poster ]]">
-        </div>
+        </video>
+        <img ng-if="!showVideo" src="[[ video.poster ]]">
+    </div>
 
         <div class="content-container">
             <div class="bar container" ng-mouseenter="barHover()" ng-mouseleave="barUnhover()">

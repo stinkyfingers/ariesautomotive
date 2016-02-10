@@ -1,16 +1,20 @@
 <div class="home-container">
 
-	<div class="container slider">
-		<h3>Slider</h3>
-		<div ng-if="cat.image && cat.image.Host !== ''" class="slide" ng-repeat="cat in parentCats">
-			<img ng-src="[[imageToString(cat.image)]]" alt="">
-			<span class="title">[[ cat.title ]]</span>
-		</div>
-		<div ng-if="cat.image && cat.image.Host !== ''" class="slide" ng-repeat="cat in parentCats">
-			<img ng-src="[[imageToString(cat.image)]]" alt="">
-			<span class="title">[[ cat.title ]]</span>
-		</div>
+	<div class="heading">
+		<h3>Product Categories</h3>
+		<span class="line"></span>
 	</div>
+	<div class="container-fluid tiles">
+		<a href="/category/[[cat.id]]" style="background-image: url([[imageToString(cat.image)]])" class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="cat in parentCats">
+			<span class="title">
+				<span class="shop">Shop</span>
+				[[ cat.title ]]
+			</span>
+			<div></div>
+		</a>
+		<div class="clearfix"></div>
+	</div>
+
 
 	<div class="container">
 		<div class="row">
