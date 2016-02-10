@@ -115,6 +115,10 @@ nav {
 	box-shadow: none;
 	height: 540px;
 
+	&.small {
+		height: 400px;
+	}
+
 	.video-container {
 		position: absolute;
 		top: 0;

@@ -71,7 +71,7 @@
     <div ui-view="lookup" class="lookup-container"></div>
 </div>
 
-<header class="home-nav hidden-xs" ng-controller="HomepageNavController">
+<header ng-class="video.small ? 'home-nav small hidden-xs' : 'home-nav hidden-xs'" ng-controller="HomepageNavController">
     <div class="video-container" ng-cloak>
         <video ng-if="showVideo" muted autoplay poster="[[ video.poster ]]" class="backgroundVideo" loop>
             <source ng-repeat="file in video.files" src="[[ file.path ]]" type="[[ file.type ]]">

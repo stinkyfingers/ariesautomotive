@@ -22,6 +22,7 @@ angular.module('ariesautomotive').controller('CategoryController', ['$scope', '$
 					var video = {
 						poster: '',
 						files: [],
+						small: true,
 					};
 					for (var i = 0; i < cat.videos[0].cdn_file.length; i++) {
 						var file = {};
@@ -43,6 +44,7 @@ angular.module('ariesautomotive').controller('CategoryController', ['$scope', '$
 					var video = {
 						poster: '',
 						files: [],
+						small: true,
 					};
 
 					var vid = cat.videos[Math.floor(Math.random() * cat.videos.length)];
