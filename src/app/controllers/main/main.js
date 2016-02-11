@@ -6,18 +6,18 @@ angular.module('ariesautomotive').controller('MainController', ['$scope', 'Testi
   $scope.featuredProducts = [];
   $scope.catalogs = [
       {
-          title: '2016 Exterior Catalog',
-          image: 'https://storage.googleapis.com/aries-website/ARIES-Exterior-Cover.png',
+          title: '2016 Exterior',
+          image: 'https://storage.googleapis.com/aries-website/2016_Exterior.jpg',
           link: 'https://storage.googleapis.com/aries-website/2016-Exterior-Catalog.pdf',
       },
       {
-          title: '2016 Interior Catalog',
-          image: 'https://storage.googleapis.com/aries-website/ARIES-Interior-Cover.png',
+          title: '2016 Interior',
+          image: 'https://storage.googleapis.com/aries-website/2016_Interior.jpg',
           link: 'https://storage.googleapis.com/aries-website/2016-Interior-Catalog.pdf',
       },
       {
-          title: '2016 Jeep Catalog',
-          image: 'https://storage.googleapis.com/aries-website/ARIES-Jeep-Cover.png',
+          title: '2016 Jeep',
+          image: 'https://storage.googleapis.com/aries-website/2016_Jeep.jpg',
           link: 'https://storage.googleapis.com/aries-website/_2016%20ARIES%20Jeep%20Catalog-SFS.pdf',
       }
   ];
@@ -33,13 +33,6 @@ angular.module('ariesautomotive').controller('MainController', ['$scope', 'Testi
   PartService.GetFeatured().then(function(featured){
     $scope.featuredProducts = featured;
   });
-
-  $scope.carouselPrev = function(){
-  	$('#hero-image-carousel').carousel('prev');
-  };
-  $scope.carouselNext = function(){
-  	$('#hero-image-carousel').carousel('next');
-  };
 
   $scope.whatsNewContent = [
   {
@@ -80,7 +73,6 @@ angular.module('ariesautomotive').controller('MainController', ['$scope', 'Testi
           }
       }
 
-      console.log(tileRows);
       $scope.categoryRows = tileRows;
   });
 

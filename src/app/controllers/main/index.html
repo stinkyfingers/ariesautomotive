@@ -1,10 +1,10 @@
 <div class="home-container">
 
-	<div class="heading">
+	<div class="heading" ng-if="parentCats.length > 0">
 		<h3>Product Categories</h3>
 		<span class="line"></span>
 	</div>
-	<div class="container-fluid tiles">
+	<div class="container-fluid fluid-tiles"  ng-if="parentCats.length > 0">
 		<a href="/category/[[cat.id]]" style="background-image: url([[imageToString(cat.image)]])" class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="cat in parentCats">
 			<span class="title">
 				<span class="shop">Shop</span>
@@ -16,43 +16,72 @@
 	</div>
 
 
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 col-lg-6">
-				<h1>DO IT WITH STYLE. DO IT WITH ARIES</h1>
-				<p>
-					They change the rules, so we make up our own. They put up road blocks; we find a way around. They tell us there is no path ahead; we blaze a trail. At ARIES, we get revved up about going off the beaten path. From our Pro Series grille guards and modular
-					Jeep bumpers to our StyleGuard&trade; floor liners and Seat Defenders, ARIES offers freedom of customization and a perfect fit for your vehicle. So whatever terrain you choose to conquer, do it with style and do it with ARIES.
-				</p>
-			</div>
-			<div class="col-md-6 col-lg-6">
+	<!-- <div class="heading" ng-if="parentCats.length > 0">
+		<h3>Product Categories</h3>
+		<span class="line"></span>
+	</div>
+	<div class="container-fluid tiles"  ng-if="parentCats.length > 0">
+		<a href="/category/[[cat.id]]" style="background-image: url([[imageToString(cat.image)]])" class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="cat in parentCats">
+			<span class="title">
+				<span class="shop">Shop</span>
+				[[ cat.title ]]
+			</span>
+			<div></div>
+		</a>
+		<div class="clearfix"></div>
+	</div> -->
 
-                <div class="row whats-new" ng-click="showWhatsNewLightbox()">
-                    <img src="https://storage.googleapis.com/aries-website/whatsnew/What's-New-Banner.png" alt="What's New with ARIES" class="header">
-                    <div class="callout">
-                        <img src="https://storage.googleapis.com/aries-website/whatsnew/ARIES-Floor-Liner-Artistic-Black%20(20).jpg" alt=" Introducing StyleGuard Floor Liners" class="styleguard">
-                        <span>Introducing StyleGuard&trade; Floor Liners</span>
-                    </div>
-                </div>
-
-				<div class="row whats-new">
-					<a href="/envision" class="envision">
-						<img src="https://storage.googleapis.com/aries-website/whatsnew/Envision-Website-Graphic.png" alt="Envision ARIES">
-					</a>
-				</div>
+	<div class="heading">
+		<h3>Latest News</h3>
+		<span class="line"></span>
+	</div>
+	<div class="container-fluid news tiles">
+		<a class="tile" href="/envision">
+			<div class="image">
+				<img src="https://storage.googleapis.com/aries-website/whatsnew/Envision-Website-Graphic.png" alt="envision ARIES">
 			</div>
-		</div>
+			<button>
+				<span class="glyphicon glyphicon-arrow-right"></span>
+			</button>
+			<div class="content">
+				<h3>envision ARIES</h3>
+				<p>Visually customize your truck</p>
+			</div>
+		</a>
+		<a class="tile" href="/category/321">
+			<div class="image">
+				<img src="https://storage.googleapis.com/aries-website/whatsnew/ARIES-Floor-Liner-Artistic-Black%20(20).jpg" alt="Introducing StyleGuard&trade; Floor Liners">
+			</div>
+			<button>
+				<span class="glyphicon glyphicon-arrow-right"></span>
+			</button>
+			<div class="content">
+				<h3>Introducing StyleGuard&trade; Floor Liners</h3>
+				<p>ARIES StyleGuard&trade; floor liners with patented OmniGrip&trade; fibers are the new wave in automotive interior.</p>
+			</div>
+		</a>
 	</div>
 
-	<div class="container catalogs" ng-if="catalogs.length > 0">
-		<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 catalog" ng-repeat="cat in catalogs">
-			<img src="[[cat.image]]" alt="[[cat.title]]">
-			<div>
-				<h3>[[cat.title]]</h3>
-				<a href="[[cat.link]]" class="red-transparent-button" title="Download [[cat.title]]">Download</a>
-			</div>
-		</div>
+	<div class="heading" ng-if="catalogs.length > 0">
+		<h3>Product Catalogs</h3>
+		<span class="line"></span>
 	</div>
+	<div class="container-fluid catalogs tiles" ng-if="catalogs.length > 0">
+		<a ng-repeat="cat in catalogs" class="tile" href="[[ cat.link ]]" target="_blank">
+			<div class="image">
+				<img src="[[ cat.image ]]" alt="[[ cat.title ]]">
+			</div>
+			<button>
+				<span class="glyphicon glyphicon-arrow-right"></span>
+				<span class="glyphicon glyphicon-save"></span>
+			</button>
+			<div class="content">
+				<h3>[[ cat.title ]]</h3>
+			</div>
+		</a>
+	</div>
+
+
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12" ng-controller="PartController">

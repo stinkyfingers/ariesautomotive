@@ -1,3 +1,4 @@
+<!-- Top Nav -->
 <nav class="container-fluid">
     <ul class="nav hidden-xs col-sm-9 col-md-9 col-lg-9">
         <li class="topNavItem"><a href="/buy" title="Where to Buy">WHERE TO BUY</a></li>
@@ -31,6 +32,7 @@
     </button>
 </nav>
 
+<!-- Mobile Menu -->
 <div class="visible-xs">
     <div id="navbarCollapse" class="collapse navbar-collapse">
         <form ng-submit="search()" class="navbar-form navbar-left visible-xs" role="search">
@@ -66,12 +68,15 @@
     </div>
 </div>
 
-
+<!-- Lookup -->
 <div class="lookup visible-xs">
     <div ui-view="lookup" class="lookup-container"></div>
 </div>
 
+<!-- Hero Container -->
 <header ng-class="video.small ? 'home-nav small hidden-xs' : 'home-nav hidden-xs'" ng-controller="HomepageNavController">
+
+    <!-- Video Block -->
     <div class="video-container" ng-cloak>
         <video ng-if="showVideo" muted autoplay poster="[[ video.poster ]]" class="backgroundVideo" loop>
             <source ng-repeat="file in video.files" src="[[ file.path ]]" type="[[ file.type ]]">
@@ -79,42 +84,73 @@
         <img ng-if="!showVideo" src="[[ video.poster ]]">
     </div>
 
-        <div class="content-container">
-            <div class="bar container" ng-mouseenter="barHover()" ng-mouseleave="barUnhover()">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
-                        <a ng-href="/" title="ARIES Automotive" class="navbar-brand">
-                            <span></span>
-                            <img src="https://storage.googleapis.com/aries-logo/ARIES%20Logo%20(1c_red%20on%20transparent).svg" alt="ARIES Automotive Logo" class="AriesLogo">
-                        </a>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
-                        <div ui-view="lookup" class="lookup-container"></div>
-                    </div>
+    <!-- Content Overlay -->
+    <div class="content-container">
+        <div class="bar container" ng-mouseenter="barHover()" ng-mouseleave="barUnhover()">
+            <div class="row">
+
+                <!-- Logo -->
+                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                    <a ng-href="/" title="ARIES Automotive" class="navbar-brand">
+                        <span></span>
+                        <img src="https://storage.googleapis.com/aries-logo/ARIES%20Logo%20(1c_red%20on%20transparent).svg" alt="ARIES Automotive Logo" class="AriesLogo">
+                    </a>
                 </div>
 
-                <div class="row">
-                    <ul class="nav navbar-nav">
-                        <li ng-repeat="c in parentCats" class="dropdown navigationItem">
-                            <a href="#" title="[[c.title]]" class="dropdown-toggle" data-toggle="dropdown" ng-if="c.children !== undefined">[[c.title | uppercase]]
-                                <i class="caret"></i>
-                            </a>
-                            <a href="/category/[[c.id]]" title="[[c.title]]" ng-if="c.children === undefined">
-                                [[c.title | uppercase]]
-                            </a>
-                            <ul class="dropdown-menu" role="menu" ng-if="c.children !== undefined">
-                                <li ng-repeat="sc in c.children | orderBy:'sort'" role="menuitem">
-                                    <a href="/category/[[sc.id]]">[[sc.title]]</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="navigationItem">
-                            <a href="/appguides" title="Application Guides">APPLICATION GUIDES</a>
-                        </li>
-                    </ul>
+                <!-- Lookup -->
+                <div class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+                    <div ui-view="lookup" class="lookup-container"></div>
                 </div>
             </div>
+            <div class="row">
+
+                <!-- Categories -->
+                <ul class="nav navbar-nav">
+                    <li ng-repeat="c in parentCats" class="dropdown navigationItem">
+                        <a href="#" title="[[c.title]]" class="dropdown-toggle" data-toggle="dropdown" ng-if="c.children !== undefined">[[c.title | uppercase]]
+                            <i class="caret"></i>
+                        </a>
+                        <a href="/category/[[c.id]]" title="[[c.title]]" ng-if="c.children === undefined">
+                            [[c.title | uppercase]]
+                        </a>
+                        <ul class="dropdown-menu" role="menu" ng-if="c.children !== undefined">
+                            <li ng-repeat="sc in c.children | orderBy:'sort'" role="menuitem">
+                                <a href="/category/[[sc.id]]">[[sc.title]]</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="navigationItem">
+                        <a href="/appguides" title="Application Guides">APPLICATION GUIDES</a>
+                    </li>
+                </ul>
+
+            </div>
         </div>
+    </div>
 
+    <!-- Carousel Banners -->
+    <div class="banners" ng-if="banners.length > 0">
+        <div id="hero-image-carousel" class="carousel slide" data-ride="carousel">
 
-    </header>
+    		<div class="carousel-inner">
+    			<div class="item" ng-class="{'active':i === 0}" ng-repeat="(i,img) in carousel_images | orderBy:'order'">
+    				<div class="carousel-caption">
+    					<span class="bigText">[[img.text]]</span>
+    					<div class="clearfix">&nbsp;</div>
+    					<a class="white-transparent-button" href="[[img.link]]">[[img.button_text]]</a>
+    				</div>
+    			</div>
+    		</div>
+
+    		<a class="left carousel-control" ng-click="carouselPrev()" role="button" data-slide="prev">
+    			<span class="glyphicon glyphicon-chevron-left"></span>
+    		</a>
+    		<a class="right carousel-control" ng-click="carouselNext()" role="button" data-slide="next">
+    			<span class="glyphicon glyphicon-chevron-right"></span>
+    		</a>
+    	</div>
+        <!-- <div class="banner" ng-repeat="ban in banners">
+            <h3>[[ ban.title ]]</h3>
+        </div> -->
+    </div>
+</header>

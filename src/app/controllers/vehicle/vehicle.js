@@ -14,6 +14,7 @@ angular.module('ariesautomotive').controller('VehicleController', ['$scope', 'Lo
 	$rootScope.pageTitle = "Automotive Accessories | Custom Fit | Vehicle Specific | ARIES";
 	$rootScope.pageDesc = "Many ARIES parts are made for a vehicle-specific fit. Look up your vehicle to find ARIES products that fit your specific year, make, model and submodel.";
 	$rootScope.pageKywds = "aries, custom fit, vehicle specific, automotive, accessories";
+	$rootScope.video.small = true;
 
 	$scope.vehicle = LookupService.getVehicle();
 	if ($scope.vehicle === null) {
