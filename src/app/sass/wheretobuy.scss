@@ -1,4 +1,5 @@
 $headerHeight: 40px;
+$SuperSmallWidth: 480px;
 
 .header-row{
     margin-top: 35px;
@@ -27,10 +28,53 @@ $headerHeight: 40px;
             border: none;
         }
     }
-    .search-form{
+    .wtb-search{
+        float: left;
+        margin-top: 10px;
+
         input{
-            height:$headerHeight;
+            height: $headerHeight;
             width: 100%;
+        }
+
+        div:nth-child(2) {
+            padding-right: 0;
+        }
+
+    }
+}
+
+.map-nav-top{
+    float:none;
+    margin: 0 auto;
+
+    .map-nav-tab-switch{
+        float: left;
+        padding-left: 0;
+    }
+
+    .geo-lookup {
+        padding-right: 0;
+        text-align: left;
+
+        a {
+            display: inline-block;
+            margin: 8px 0;
+            text-decoration: none;
+
+            &:active,
+            &:focus {
+                color: #26090D;
+            }
+
+            &:hover {
+                transition: color .3s ease-in;
+            }
+
+            span {
+                font-size: 15px;
+                vertical-align: baseline;
+            }
         }
     }
 }
@@ -47,12 +91,34 @@ $headerHeight: 40px;
     }
 }
 
+.loadingloc{
+    .message{
+        position: absolute;
+        width: 200px;
+        margin-left:-75px;
+        margin-top:60px;
+        z-index: 2000000000;
+        left: 50%;
+        top: 50%;
+        font-weight:bold;
+        font-size:1.5em;
+    }
+}
+
+.map-app-container{
+    float:none;
+    margin: 20px auto 0;
+    min-height:500px;
+}
+
 .map-box{
     width: 100%;
-    margin: 0 auto 20px auto;
-    padding: 20px 0 20px 0;
+    margin: 0 auto;
+    padding: 0;
+    min-height: 500px;
 
     .loading-container{
+
         position: relative;
         height: auto;
         text-align: center;
@@ -60,13 +126,50 @@ $headerHeight: 40px;
         .message{
             font-size: 18px;
             font-weight: bold;
+            z-index:999999999999999;
         }
     }
+
+
     .angular-google-map-container{
-        height: 400px;
+        height:500px;
+        max-height: 500px;
     }
     > img{
         width: 100%;
+    }
+}
+
+.tierToggles {
+    padding: 0 15px 5px;
+
+    .toggles {
+        background-color: #ffffff;
+        margin-bottom: 10px;
+        padding: 10px 5px;
+        width: 100%;
+
+        .tierTitle{
+            font-size: 1.5em;
+            margin-bottom:0px;
+            padding-bottom:0px;
+            display:inline;
+        }
+        .toggleContainer{
+            display:inline;
+            font-size:1.5em;
+            background-color:#ffffff;
+            padding:3px;
+            border-radius:4px;
+            margin:5px;
+            box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.6);
+        }
+        .geoloc{
+            padding-top:3px;
+            a{
+                padding: 4px 15px;
+            }
+        }
     }
 }
 
@@ -106,63 +209,86 @@ $headerHeight: 40px;
 }
 
 .text-locations{
-    padding: 4px 0;
-    > div {
-        position: relative;
-        padding: 10px;
-        margin: 10px;
-        min-height: 190px;
-        border-bottom: 3px solid #57111a;
-        span, a{
-            font-size: 16px;
-            &.name{
-                color: #57111a;
-                text-transform: uppercase;
-                font-size: 24px;
-                font-weight: bold;
-                display:block;
-            }
-            &.type{
+
+    h2 {
+        border-bottom: 4px solid $altRed;
+    }
+    .location {
+        padding: 4px 0;
+
+        > div {
+            position: relative;
+            padding: 10px 10px 0;
+            margin: 10px;
+            min-height: 190px;
+            border-bottom: 3px solid #57111a;
+            background: $white;
+            box-shadow: 3px 4px 7px $footerColor;
+
+            span, a{
                 font-size: 16px;
-                display:block;
-                text-transform: none;
-                font-weight: normal;
-                color: #333333;
-                margin-bottom: 15px;
-            }
-            &.city:before{
-                clear:both;
-                display:block;
-                content: ' ';
-            }
+                &.name{
+                    color: #57111a;
+                    text-transform: uppercase;
+                    font-size: 24px;
+                    font-weight: bold;
+                    display:block;
+                    line-height:20px;
+                    margin-bottom:8px;
+                }
+                &.type{
+                    font-size: 16px;
+                    display:block;
+                    text-transform: none;
+                    font-weight: normal;
+                    color: #333333;
+                    margin-bottom: 5px;
+                }
+                &.city:before{
+                    clear:both;
+                    display:block;
+                    content: ' ';
+                }
 
-            &.website{
-                display:block;
-            }
-        }
-        a{
-            cursor: pointer;
-        }
-
-        .actions{
-            position: absolute;
-            bottom: 15px;
-            margin-top: 10px;
-            a{
-                cursor: pointer;
-                margin-right: 10px;
-                text-decoration: none;
-                font-size: 18px;
-                span{
-                    vertical-align: middle;
+                &.website{
+                    display:block;
                 }
             }
+            a{
+                cursor: pointer;
+            }
+
+            .actions{
+                position: absolute;
+                bottom:10px;
+                margin-top: 3px;
+                a{
+                    cursor: pointer;
+                    margin-right: 7px;
+                    text-decoration: none;
+                    font-size: 16px;
+                    span{
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+
+        &:nth-child(1n) > div {
+            margin-left: 0;
         }
     }
 }
 
 .online-locations{
     margin: 30px 0;
+
+    .online-retailer-logo{
+        width:100%;
+        height:auto;
+        max-height:50px;
+    }
+
     a {
         border-bottom: 3px solid #57111a;
         display: block;
@@ -186,12 +312,44 @@ $headerHeight: 40px;
 }
 
 @media(min-width: $screen-md-min){
+
+    .header-row .wtb-search {
+        float: right;
+    }
+
+    .map-nav-top .geo-lookup {
+        text-align: right;
+    }
+
     .map-box {
         .loading-container{
             padding-top: 15%;
         }
         .angular-google-map-container{
             height:800px;
+        }
+    }
+}
+
+@media (max-width: $SuperSmallWidth) {
+    .toggles{
+        display:inline-block;
+        .toggleContainer{
+            float:left;
+            display:block;
+            margin-top:10px;
+            width:100%;
+        }
+    }
+    .geoloc{
+        float:left;
+        display:block;
+        margin-top:10px;
+        width:100%;
+        a{
+            width:100%;
+            display:block;
+            text-align:center;
         }
     }
 }

@@ -12,6 +12,10 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 
 	$rootScope.pageTitle = "ARIES Automotive | Where to Buy";
 	$rootScope.pageKywds = "aries, automotive, dealer locator, where to buy";
+	$scope.platEnabled = true;
+	$scope.goldEnabled = true;
+	$scope.silverEnabled = true;
+	$scope.locLoaded = false;
 
 
 	var lastBounds = {};
@@ -22,7 +26,7 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 		}
 		var lat = path.getAt(0).lat();
 		var lng = path.getAt(0).lng();
-		$scope.map.zoom = 8;
+		$scope.map.zoom = 10;
 		$scope.position.coords = {
 			latitude: lat,
 			longitude: lng
@@ -57,7 +61,7 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 		var neStr = ne.lat() + ',' + ne.lng();
 		var swStr = sw.lat() + ',' + sw.lng();
 		$scope.locations = [];
-		var sort = 3;
+		var sort = 2;
 		// if($scope.map.zoom > 6 && $scope.map.zoom < 9){
 		// 	sort = 2;
 		// }else if($scope.map.zoom > 8){
@@ -73,14 +77,41 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 				$scope.loadingLocations = false;
 				return;
 			}
-
+			var mapLocations = [];
+			var platLocations = [];
+			var goldLocations = [];
+			var silvLocations = [];
 			for (var i = 0; i < data.length; i++) {
 				var el = data[i];
 				if(el !== undefined && el !== null && el.id !== undefined && el.id !== null && el.dealerType !== undefined){
 					data[i].icon = el.dealerType.mapIcon.mapIcon.Scheme + '://' + el.dealerType.mapIcon.mapIcon.Host + el.dealerType.mapIcon.mapIcon.Path;
 				}
+				// handle the toggle buttons for each dealer tier
+				if(el.dealerTier.tier == "Platinum" && $scope.platEnabled === true){
+					// handle discount hitch being first, ugh.
+					if (el.customerId === 10444250){
+						platLocations.unshift(data[i]); // love unshift
+					}else{
+						platLocations.push(data[i]);
+					}
+					mapLocations.push(data[i]);
+				}
+				if(el.dealerTier.tier == "Gold" && $scope.goldEnabled === true){
+					goldLocations.push(data[i]);
+					mapLocations.push(data[i]);
+				}
+				if(el.dealerTier.tier == "Silver" && $scope.silverEnabled === true){
+					silvLocations.push(data[i]);
+					mapLocations.push(data[i]);
+				}
 			}
-			$scope.locations = data;
+			// Handle different tiers
+			$scope.platLocations = platLocations;
+			$scope.goldLocations = goldLocations;
+			$scope.silvLocations = silvLocations;
+			// handle map locations
+			$scope.locations = mapLocations;
+
 			if(data.length === count){
 				getByBounds(center, ne, sw, $scope.locations.length, count, sort);
 			}else{
@@ -90,23 +121,31 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 	};
 
     var plotPosition = function(pos){
-        if(pos.coords !== undefined && pos.coords !== null){
-            $scope.position = {
-				coords: {
-					latitude: pos.coords.latitude,
-					longitude: pos.coords.longitude
-				}
-			};
-			$scope.map.center = $scope.coordinates = {
+        if(pos.coords === undefined || pos.coords === null){
+			return;
+		}
+
+        $scope.position = {
+			coords: {
 				latitude: pos.coords.latitude,
 				longitude: pos.coords.longitude
-			};
-			// $scope.map.zoom = 5;
+			}
+		};
+		$scope.map.center = $scope.coordinates = {
+			latitude: pos.coords.latitude,
+			longitude: pos.coords.longitude
+		};
+		$scope.map.zoom = 10;
+		$scope.locLoaded = true;
+        localStorage.set('position', pos);
+        $scope.map.refresh = true;
+		if (!$scope.$$phase) {
 			$scope.$apply();
-            localStorage.set('position', pos);
-        }
+		}
     };
+
     var failedPosition = function(){
+		$scope.locLoaded = true;
         if ($scope.position === undefined){
             $rootScope.$broadcast('error', 'Failed to retrieve your location');
         }
@@ -114,6 +153,7 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 		ngDialog.open({
 			template: 'app/controllers/wheretobuy/location-form.html',
 			scope: $scope,
+			closeByNavigation: true,
 			controller: ['$scope',function($scope){
 				$scope.lookupLocation = function(){
 					var val = document.getElementById('autocomplete').value;
@@ -123,8 +163,8 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 		});
 
 		$scope.map.center = {
-			latitude: 40.125496,
-			longitude: -96.391891
+			latitude: 44.8167,
+			longitude: -91.5000
 		};
 		$scope.map.zoom = 4;
 		$scope.position = {};
@@ -132,8 +172,8 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 		$scope.$apply();
     };
 
-    var updateLocations = function(){
 
+    var updateLocations = function(){
         $scope.coordinates.latitude = $scope.position.coords.latitude;
         $scope.coordinates.longitude = $scope.position.coords.longitude;
 
@@ -149,12 +189,14 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 			$scope.locations = [];
 		}
 
+
     };
 
 	$scope.locations = [];
 	$rootScope.search = '';
 	$scope.display = $location.hash() || 'local';
     $scope.coordinates = {};
+
     $scope.map = {
         markerIcon: 'http://www.curtmfg.com/Content/img/mapflag.png',
         show: false,
@@ -165,8 +207,8 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
         showWeather: false,
         showHeat: false,
         center: {
-			latitude: 40.125496,
-			longitude: -96.391891
+			latitude: 44.8167,
+			longitude: -91.5000
         },
         options:{
             streetViewControler: false,
@@ -174,7 +216,7 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
             maxZoom: 20,
             minZoom: 3
         },
-        zoom: 8,
+        zoom: 10,
 		pan: true,
         dragging: false,
         bounds: {},
@@ -203,7 +245,9 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 				$scope.map.show = true;
 				$scope.map.refresh = true;
 			});
-
+		}
+		if ($scope.online === undefined){
+			getOnline();
 		}
 		$location.hash(disp);
 		e.preventDefault();
@@ -233,6 +277,7 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 			};
 			$scope.map.zoom = 10;
 			$scope.map.refresh = true;
+
 			$scope.$apply();
 		});
 	};
@@ -270,10 +315,10 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 	};
 
     $scope.$watch('position',function(){
+    	$scope.map.show = true; // don't wait on geo location to show map. Downside is map will eventually snap to the result of getCurrentPosition()
         if ($scope.position === undefined || $scope.position.coords === undefined || $scope.position.coords === null){
             return;
         }
-        $scope.map.show = true;
         $scope.map.refresh = true;
         updateLocations();
     });
@@ -311,14 +356,19 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 					types: ['geocode']
 				}
 			);
+
 			maps.event.addListener(comp, 'place_changed', function(){
 				var place = comp.getPlace();
-				if(place.formatted_address === undefined || place.formatted_address === ''){
+				if(place === undefined){
 					return;
 				}
-				$analytics.eventTrack('wtb-search:' + place.formatted_address );
-				$scope.lookupLocation(place.formatted_address);
 
+				$analytics.eventTrack('wtb-search:' + place.formatted_address);
+				if(place.formatted_address !== '' && place.formatted_address !== undefined){
+					$scope.lookupLocation(place.formatted_address);
+				}else{
+					$scope.lookupLocation(place.name);
+				}
 			});
 		}
 		if($stateParams.location !== ''){
@@ -336,39 +386,102 @@ angular.module('ariesautomotive').controller('BuyController', ['$scope', '$rootS
 				$scope.$apply();
 			});
 		}
-		if (Modernizr.geolocation) {
-            var pos = localStorage.get('position');
-            if (pos === undefined || pos === null || pos.coords === undefined){
-				var geoOptions = {
-			            enableHighAccuracy: true,
-			            timeout: 10000,
-			            maximumAge: 500
-			    };
 
-                navigator.geolocation.getCurrentPosition(plotPosition, failedPosition, geoOptions);
-				return;
-            }
+		BuyService.geoLocateIP().then(function(res) {
+			$scope.map.center = $scope.coordinates = {
+				latitude: res.location.lat,
+				longitude: res.location.lng
+			};
 
-            $scope.position = pos;
-			return;
-		}
+            $scope.position = {
+				coords: {
+					latitude: res.location.lat,
+					longitude: res.location.lng
+				}
+			};
+	        plotPosition($scope.position);
+		}, function(error){
+			// in case getting by ip fails, the default location of Eau Claire will be loaded
+			$scope.locLoaded = true;
+		});
+
     });
 
-	BuyService.online(0, 100).then(function(res) {
-		var platinums = [];
-		var regulars = [];
-		res.forEach(function(d){
-			if (d.dealerTier.tier == "Platinum"){
-				platinums.push(d);
-			}else{
-				regulars.push(d);
-			}
-		});
-		platinums.sort(randomOrder)
-		regulars.sort(randomOrder)
-		$scope.online = platinums.concat(regulars);
+	$scope.LookupGeoLoc = function(){
+		if (Modernizr.geolocation) {
+			var geoOptions = {
+		            enableHighAccuracy: true,
+		            timeout: 10000,
+		            maximumAge: Infinity // Infinity says to try to pull from cache if possible
+		    };
+            navigator.geolocation.getCurrentPosition(plotPosition, failedPosition, geoOptions);
+			return;
+		}
+	}
 
-	});
+	$scope.toggleTier = function(tier){
+		if (tier === "Platinum"){
+			if ($scope.platEnabled === true){
+				$scope.platEnabled = false;
+			}else{
+				$scope.platEnabled = true;
+			}
+		}
+		if (tier === "Gold"){
+			if ($scope.goldEnabled === true){
+				$scope.goldEnabled = false;
+			}else{
+				$scope.goldEnabled = true;
+			}
+		}
+		if (tier === "Silver"){
+			if ($scope.silverEnabled === true){
+				$scope.silverEnabled = false;
+			}else{
+				$scope.silverEnabled = true;
+			}
+		}
+		// refresh map	- kinda hacky, will revisit
+        $scope.map.show = true;
+        $scope.map.refresh = true;
+		$scope.map.center = {
+            latitude: $scope.map.center.latitude + .0001,
+            longitude: $scope.map.center.longitude
+        };
+	};
+	if ($location.hash() == "online"){
+		getOnline();
+	}
+
+	function getOnline(){
+		BuyService.online(0, 100).then(function(res) {
+			var platinums = [];
+			var golds = [];
+			var silvers = []
+			res.forEach(function(d){
+				switch(d.dealerTier.tier){
+					case "Platinum":
+						platinums.push(d);
+						break;
+					case "Gold":
+						golds.push(d);
+						break;
+					case "Silver":
+						silvers.push(d);
+						break;
+					default:
+						silvers.push(d);
+				}
+			});
+			platinums.sort(randomOrder);
+			golds.sort(randomOrder);
+			silvers.sort(randomOrder);
+			$scope.onlinePlats = platinums;
+			$scope.onlineGolds = golds;
+			$scope.onlineSilvs = silvers;
+
+		});
+	}
 
 	function randomOrder(){
 		return (Math.round(Math.random())-0.5);

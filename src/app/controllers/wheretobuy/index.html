@@ -1,37 +1,50 @@
 <div class="container full-width">
 
     <div class="row header-row">
-        <div class="col-md-5">
-            <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" ng-class="{ 'active' : display === 'local' }">
-                    <a href="#local" aria-controls="Buy local" role="tab" ng-click="changeDisplay('local', $event)" data-toggle="tab">
-                        Buy Local
+        <div class="col-md-12 map-nav-top">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 map-nav-tab-switch">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{ 'active' : display === 'local' }">
+                        <a href="#local" aria-controls="Buy local" role="tab" ng-click="changeDisplay('local', $event)" data-toggle="tab">
+                            Buy Local
+                        </a>
+                    </li>
+                    <li role="presentation" ng-class="{ 'active' : display === 'online' }">
+                        <a href="#online" aria-controls="Buy online" role="tab" ng-click="changeDisplay('online', $event)" data-toggle="tab">
+                            Buy Online
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 wtb-search search-form row" ng-show="display === 'local'">
+                <div class="pull-left col-lg-4 col-md-4 col-xs-4 col-sm-3 geo-lookup">
+                    <a href="#" ng-click="LookupGeoLoc()">
+                        <ng-md-icon icon="my_location"></ng-md-icon>
+                        <span>Use my Location</span>
                     </a>
-                </li>
-                <li role="presentation" ng-class="{ 'active' : display === 'online' }">
-                    <a href="#online" aria-controls="Buy online" role="tab" ng-click="changeDisplay('online', $event)" data-toggle="tab">
-                        Buy Online
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="col-md-7 search-form row" ng-show="display === 'local'">
-            <input type="search" class="form-control autocomplete" placeholder="Search for location" ng-show="map.show">
+                </div>
+                <div class="pull-right col-lg-8 col-md-8 col-xs-8 col-sm-9">
+                    <input type="search" class="form-control autocomplete" placeholder="Search for location" ng-show="map.show">
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
         </div>
     </div>
-
     <div class="tab-content">
         <div class="tab-pane" ng-class="{ 'active' : display === 'local' }" id="local" role="tabpanel">
             <div class="row">
-
-                <div ng-if="!mobile_view" ng-include="" src="'app/controllers/wheretobuy/fourLocations.html'"></div>
-
-                <div class="col-md-8">
+                <div class="col-md-12 col-lg-12 map-app-container">
                     <div id="map" class="angular-google-map-container map-box">
                         <div ng-if="!map.show" class="loading-container">
                             <span us-spinner="{radius:30, width:8, length: 16}"></span>
                             <span class="message">Loading the map..</span>
                         </div>
+                        <div ng-if="!locLoaded" class="loadingloc">
+                            <span us-spinner="{radius:30, width:8, length: 16}"></span>
+                            <span class="message">Loading your location..</span>
+                        </div>
+
                         <ui-gmap-google-map ng-if="map.show" style="top:80px" class="col-md-12" center="map.center"
                                             control="gMap"
                                             zoom="map.zoom"
@@ -40,6 +53,7 @@
                                             events="map.events"
                                             bounds="map.bounds"
                                             refresh="map.refresh"
+                                            dorebuildall="true"
                                             pan="true">
                             <ui-gmap-markers idKey="'id'" models="locations" doCluster="true" clusterOptions="{minimumClusterSize: 10}" icon="'icon'" coords="'coords'">
                                 <ui-gmap-windows show="show">
@@ -67,45 +81,58 @@
                         </ui-gmap-google-map>
                     </div>
                 </div>
-            </div>
-            <div class="row col-md-12" ng-if="!mobile_view">
-                <div ng-repeat="loc in locations" ng-if="$index > 3" class="col-md-4 col-sm-12 col-xs-12 text-locations">
-                    <div itemscope itemtype="http://schema.org/PostalAddress">
-                        <a ng-click="panTo(loc)" class="name" itemprop="name">[[ loc.name ]]</a>
-                        <span class="type">[[ loc.dealerType.label ]]</span>
-                        <span class="address" itemprop="streetAddress">[[ loc.address ]]</span>
-                        <span class="city" itemprop="addressLocality">[[ loc.city ]]</span>
-                        <span>,</span>
-                        <span class="state" itemprop="addressRegion">[[ loc.state.abbreviation ]]</span>
-                        <span class="zip" itemprop="postalCode">[[ loc.postalCode ]]</span>
-                        <span class="country" itemprop="addressCountry">[[ loc.country.country ]]</span>
-
-                        <a ng-if="loc.showWebsite && loc.website.Host !== ''" href="[[ loc.website.Scheme ]]://[[ loc.website.Host ]][[ loc.website.Path ]]" class="website">
-                            [[ loc.website.Scheme ]]://[[ loc.website.Host ]][[ loc.website.Path ]]
-                        </a>
-
-                        <div class="actions">
-                            <a href="tel:[[ loc.phone ]]">
-                                <span class="glyphicon glyphicon-earphone"></span>
-                                [[ loc.phone ]]
-                            </a>
-                            <a ng-click="loadDirections(loc.address + ', ' + loc.city + ', ' + loc.state.abbreviation + ', ' + loc.country.country)">
-                                <span class="glyphicon glyphicon-th-list"></span>
-                                Directions
-                            </a>
-                            <a ng-click="panTo(loc)">
-                                <span class="glyphicon glyphicon-map-marker"></span>
-                                View on Map
-                            </a>
-                        </div>
-
+                <div ng-if="map.show" class="col-md-12 tierToggles">
+                    <div class="toggles col-md-10" style="margin-left:auto; margin-right:auto; float:none;">
+                            <h4 class="tierTitle hidden-xs hidden-sm">Show / Hide Types:</h4>
+                            <div class="toggleContainer" id="platToggle">
+                                  <input type="checkbox" name="platEnabled" value="platEnabled" ng-model="platEnabled" ng-change="toggleTier('Platinum')"> <img height="20px" src="https://storage.googleapis.com/aries-website/wtb/mapflag.png"> Platinum
+                            </div>
+                            <div class="toggleContainer" id="goldToggle">
+                                <input type="checkbox" name="goldEnabled" value="goldEnabled" ng-model="goldEnabled" ng-change="toggleTier('Gold')"> <img src="http://www.curtmfg.com/Content/img/mapdot4.png"> Gold
+                            </div>
+                            <div class="toggleContainer" id="silverToggle">
+                                <input type="checkbox" name="silverEnabled" value="silverEnabled" ng-model="silverEnabled" ng-change="toggleTier('Silver')"> <img src="http://www.curtmfg.com/Content/img/mapdot3.png"> Silver
+                            </div>
                     </div>
                 </div>
             </div>
+            <div class="row col-md-12">
+                <locations locations="platLocations"></locations>
+                <locations locations="goldLocations"></locations>
+                <locations locations="silvLocations"></locations>
+            </div>
         </div>
         <div class="tab-pane" ng-class="{ 'active' : display === 'online' }" id="online" role="tabpanel">
+            <h1>Online Retailers</h1>
+            <p>Want to purchase our products online? Listed below are online retailers, where you can purchase our products to be delivered right to your door.</p>
             <div class="row">
-                <div ng-repeat="d in online" class="col-md-3 col-sm-12 col-xs-12 online-locations">
+                <h3 ng-if="onlinePlats.length > 0" class="col-xs-12 col-md-12 col-lg-12">Platinum</h3>
+                <!-- Platinum will display company logo instead of just name -->
+                <div ng-repeat="d in onlinePlats" class="col-md-3 col-sm-12 col-xs-12 online-locations">
+                    <a href="http://[[ d.website.Host ]][[ d.website.Path ]]" target="_blank" itemscope itemtype="http://schema.org/PostalAddress">
+                        <img class="online-retailer-logo" ng-if="d.logo.Host" src="http://[[ d.logo.Host ]][[ d.logo.Path ]]" alt="[[d.name]]">
+                        <!--
+                        Example Image
+                        <img class="online-retailer-logo" src="http://www.curtmfg.com/assets/eCustomHitch.png"> -->
+                        <span ng-if="!d.logo.Host" itemprop="name" class="name">[[ d.name ]]</span>
+                        <div class="actions">
+                            <span class="glyphicon glyphicon-new-window"></span>
+                            Click Here to Buy Online
+                        </div>
+                    </a>
+                </div>
+                <h3 ng-if="onlineGolds.length > 0" class="col-xs-12 col-md-12 col-lg-12">Gold</h3>
+                <div ng-repeat="d in onlineGolds" class="col-md-3 col-sm-12 col-xs-12 online-locations">
+                    <a href="http://[[ d.website.Host ]][[ d.website.Path ]]" target="_blank" itemscope itemtype="http://schema.org/PostalAddress">
+                        <span itemprop="name" class="name">[[ d.name ]]</span>
+                        <div class="actions">
+                            <span class="glyphicon glyphicon-new-window"></span>
+                            Click Here to Buy Online
+                        </div>
+                    </a>
+                </div>
+                <h3 ng-if="onlineSilvs.length > 0" class="col-xs-12 col-md-12 col-lg-12">Silver</h3>
+                <div ng-repeat="d in onlineSilvs" class="col-md-3 col-sm-12 col-xs-12 online-locations">
                     <a href="http://[[ d.website.Host ]][[ d.website.Path ]]" target="_blank" itemscope itemtype="http://schema.org/PostalAddress">
                         <span itemprop="name" class="name">[[ d.name ]]</span>
                         <div class="actions">
@@ -116,9 +143,6 @@
                 </div>
             </div>
         </div>
-
-        <div ng-if="mobile_view" ng-include="" src="'app/controllers/wheretobuy/fourLocations.html'"></div>
-
     </div>
 
 </div>
