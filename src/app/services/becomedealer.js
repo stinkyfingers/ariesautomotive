@@ -20,8 +20,6 @@ angular.module('ariesautomotive').factory('BecomeDealerService', ['$http', 'AppC
 		},
 		PostContactData : function(contact){
 			var def = $q.defer();
-			console.log(AppConfig.APIURL + '/contact/' + contact.type);
-			return;
 			$http({
 				method: 'post',
 				url: AppConfig.APIURL + '/contact/' + contact.type, //51 is become a dealer contact type ID
