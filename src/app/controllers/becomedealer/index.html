@@ -6,14 +6,17 @@
                 <div class="col-xs-12 col-sm-12 col-md-6-12 col-lg-10 col-offset-lg-1">
                     <h1>BECOME A DEALER</h1>
 
-                    <form role="form">
+                    <form role="form" name="dealerForm" novalidate>
                         <div class="form-group col-xs-6">
-                            <label for="firstname">Enter your first name:</label>
-                            <input type="text" class="form-control" id="firstname" placeholder="Enter your first name." ng-model="contact.firstName">
+                            <label for="firstname">Enter your first name:
+                                <span ng-show="dealerForm.firstname.$invalid && !dealerForm.firstname.$pristine" class="warning"> First name is required</span>
+                            </label>
+                            <input type="text" class="form-control" id="firstname" placeholder="Enter your first name." ng-model="contact.firstName" name="firstname" required>
                         </div>
                         <div class="form-group col-xs-6">
-                            <label for="lastname">Enter your last name:</label>
-                            <input type="text" class="form-control" id="lastname" placeholder="Enter your last name." ng-model="contact.lastName">
+                            <label for="lastname">Enter your last name:
+                            <span ng-show="dealerForm.lastname.$invalid && !dealerForm.lastname.$pristine" class="warning"> Last name is required</span></label>
+                            <input type="text" class="form-control" id="lastname" placeholder="Enter your last name." ng-model="contact.lastName" name="lastname" required>
                         </div>
                         <div class="form-group col-xs-6">
                             <label for="businessname">Enter your business name:</label>
@@ -29,7 +32,11 @@
                         </div>
                         <div class="form-group col-xs-6">
                             <label for="email">Enter your email address:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email address." ng-model="contact.email">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email address." ng-model="contact.email" required>
+                            <div ng-show="dealerForm.email.$dirty && dealerForm.email.$invalid" class="warning">Invalid:
+                                <span ng-show="dealerForm.email.$error.required">Tell us your email.</span>
+                                <span ng-show="dealerForm.$error.email">This is not a valid email.</span>
+                            </div>
                         </div>
                         <div class="form-group col-xs-6">
                             <label for="phone">Enter your phone number:</label>
@@ -60,10 +67,11 @@
                         </div>
                         <div class="form-group col-xs-12">
                             <label for="message">If you would like to leave us a message, we'd love to hear from you!</label>
-                            <textarea id="message" class="form-control" cols="60" rows="10" placeholder="Enter your message here." ng-model="contact.message"></textarea>
+                            <span ng-show="dealerForm.message.$invalid && !dealerForm.message.$pristine" class="warning">Message is required</span>
+                            <textarea id="message" class="form-control" cols="60" rows="10" placeholder="Enter your message here." ng-model="contact.message" name="message" required></textarea>
                         </div>
                         <div class="form-group col-xs-12">
-                            <button type="submit" class="btn btn-primary" ng-disabled="saving" ng-click="saveDealer(contact)">SEND</button>
+                            <button type="submit" class="btn btn-primary" ng-disabled="dealerForm.$invalid || saving" ng-click="saveDealer(contact)">SEND</button>
                             <span ng-if="message">[[message]]</span>
                         </div>
                     </form>
