@@ -18,7 +18,7 @@ angular.module('ariesautomotive').controller('BecomeDealerController', ['$scope'
 
 	$scope.saveDealer = function(contact) {
 		$scope.saving = true;
-		contact.type = '15'; //becoming a dealer
+		contact.type = '28'; //becoming a dealer
 		contact.sendEmail = true;
 		contact.subject = 'Becoming a Dealer';
 		contact.brand = {
