@@ -192,6 +192,7 @@ angular.module('ariesautomotive', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanit
 					}
 				}
 			});
+		$urlRouterProvider.when('/styleguard', '/category/321');
 		$urlRouterProvider.otherwise('/');
 		$interpolateProvider.startSymbol('[[');
 		$interpolateProvider.endSymbol(']]');
